@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* MoneyMentor Design System - Modern Fintech UI with Glass Morphism */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 220 20% 97%;
+    --foreground: 215 25% 15%;
 
+    /* Card system with glass effect */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
+    --glass: 0 0% 100% / 0.1;
+    --glass-border: 0 0% 100% / 0.2;
 
+    /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Trust Blue */
+    --primary: 210 100% 50%;
+    --primary-glow: 210 100% 70%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Success Green */
+    --secondary: 142 71% 45%;
+    --secondary-glow: 142 71% 65%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 220 15% 95%;
+    --muted-foreground: 215 20% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Warm Gold */
+    --accent: 45 95% 55%;
+    --accent-glow: 45 95% 75%;
+    --accent-foreground: 215 25% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status colors */
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 71% 45%;
+    --warning: 35 95% 55%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* UI elements */
+    --border: 220 15% 88%;
+    --input: 220 15% 95%;
+    --ring: 210 100% 50%;
 
-    --radius: 0.5rem;
+    /* Design tokens */
+    --radius: 1rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%), hsl(250 100% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 71% 45%), hsl(180 71% 50%));
+    --gradient-bg: linear-gradient(135deg, hsl(220 30% 95%), hsl(250 30% 98%));
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.25), hsl(0 0% 100% / 0.1));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(210 50% 20% / 0.1);
+    --shadow-glow: 0 0 30px hsl(210 100% 50% / 0.3);
+    --shadow-glass: 0 8px 32px hsl(210 50% 20% / 0.12);
+    
+    /* Animations */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +131,55 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-bg);
+    min-height: 100vh;
   }
+}
+
+@layer components {
+  /* Glass morphism card */
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-[var(--shadow-glass)];
+  }
+  
+  /* Gradient button variants */
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-purple-600 text-primary-foreground;
+    @apply shadow-[var(--shadow-glow)] transition-all duration-300;
+    @apply hover:scale-105 hover:shadow-[var(--shadow-glow)] active:scale-95;
+  }
+  
+  .btn-success {
+    @apply bg-gradient-to-r from-secondary to-emerald-600 text-secondary-foreground;
+    @apply shadow-sm transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+  
+  /* Animated elements */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .border-gradient {
+    border-image: var(--gradient-primary) 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px hsl(210 100% 50% / 0.3); }
+  to { box-shadow: 0 0 30px hsl(210 100% 50% / 0.6); }
 }
