@@ -164,31 +164,67 @@ const Insights = () => {
         {/* Challenges */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {challenges.map((challenge, index) => (
-            <Card key={index} className="glass-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <span className="text-2xl">{challenge.emoji}</span>
-                  {challenge.title}
+            <Card key={index} className="glass-card relative overflow-hidden group hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center gap-3 text-lg">
+                  <span className="text-3xl animate-bounce">{challenge.emoji}</span>
+                  <div>
+                    <div className="font-semibold">{challenge.title}</div>
+                    <div className="text-sm text-muted-foreground font-normal">
+                      {challenge.progress >= 100 ? "🎉 Goal completed!" : 
+                       challenge.progress >= 80 ? `You're ${challenge.progress}% there! 💪` :
+                       `🔥 ${challenge.daysLeft} days left to hit your goal!`}
+                    </div>
+                  </div>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between text-sm">
-                  <span>Progress</span>
-                  <span>{challenge.current}/{challenge.target}</span>
-                </div>
-                <Progress value={challenge.progress} className="h-3" />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">
-                    {challenge.daysLeft} days left
-                  </span>
-                  <div className="text-sm font-medium">
-                    {challenge.progress >= 100 ? "🎉 Completed!" : `${challenge.progress}%`}
+              <CardContent className="space-y-6 relative z-10">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Target Amount</span>
+                    <span className="text-lg font-bold text-primary">₹{challenge.target}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Current Amount</span>
+                    <span className="text-lg font-semibold text-secondary">₹{challenge.current}</span>
+                  </div>
+                  <div className="relative">
+                    <Progress 
+                      value={challenge.progress} 
+                      className="h-4 bg-muted/30 overflow-hidden rounded-full"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full animate-pulse opacity-50"></div>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground font-medium">
+                      {challenge.daysLeft} days remaining
+                    </span>
+                    <span className="font-bold text-accent">
+                      {challenge.progress}%
+                    </span>
                   </div>
                 </div>
+                
                 {challenge.progress >= 100 && (
-                  <div className="bg-secondary/20 rounded-lg p-3 text-center">
-                    <span className="text-secondary font-semibold">
-                      🏅 Badge Unlocked!
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-lg"></div>
+                    <div className="relative bg-gradient-to-r from-secondary/10 to-accent/10 rounded-xl p-4 text-center border border-secondary/20 backdrop-blur-sm">
+                      <div className="text-2xl mb-2 animate-bounce">🏅</div>
+                      <span className="text-secondary font-bold text-lg">
+                        Badge Unlocked!
+                      </span>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        Challenge Master
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {challenge.progress < 100 && challenge.progress >= 80 && (
+                  <div className="bg-accent/10 rounded-lg p-3 text-center border border-accent/20">
+                    <span className="text-accent font-semibold">
+                      🚀 Almost there! Keep pushing!
                     </span>
                   </div>
                 )}

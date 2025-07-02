@@ -28,7 +28,7 @@ const Login = () => {
       <Card className="w-full max-w-md glass-card relative z-10">
         <CardHeader className="text-center space-y-2">
           <div className="mb-4">
-            <h1 className="text-4xl font-bold text-gradient mb-2">MoneyMentor</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-2">Broke2Boss</h1>
             <p className="text-muted-foreground text-lg">Master your money habits</p>
           </div>
           <CardTitle className="text-2xl font-semibold">Welcome Back</CardTitle>
